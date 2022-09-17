@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import config from '../config/config';
+import config from '../config/configuration';
 @Module({
   imports: [
     TypeOrmModule.forRoot({

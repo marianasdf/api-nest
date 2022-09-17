@@ -1,15 +1,16 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class books1663292543109 implements MigrationInterface {
+export class user1663450192037 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'books',
+        name: 'user',
         columns: [
           {
-            name: 'type',
+            name: 'id',
             type: 'varchar',
-            isPrimary: true,
+            isUnique: true,
+            isNullable: false,
           },
           {
             name: 'name',
@@ -17,27 +18,12 @@ export class books1663292543109 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'price',
-            type: 'integer',
-            isNullable: false,
-          },
-          {
-            name: 'image',
+            name: 'email',
             type: 'varchar',
             isNullable: false,
           },
           {
-            name: 'author',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'publishingCompany',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'isbn',
+            name: 'password',
             type: 'varchar',
             isNullable: false,
           },
@@ -45,11 +31,13 @@ export class books1663292543109 implements MigrationInterface {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
+            isNullable: false,
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
+            isNullable: false,
           },
         ],
       }),
@@ -58,6 +46,6 @@ export class books1663292543109 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('books');
+    await queryRunner.dropTable('user');
   }
 }
