@@ -18,7 +18,7 @@ export class books1663292543109 implements MigrationInterface {
           },
           {
             name: 'price',
-            type: 'number',
+            type: 'integer',
             isNullable: false,
           },
           {
