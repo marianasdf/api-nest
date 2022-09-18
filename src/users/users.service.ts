@@ -26,15 +26,24 @@ export class UsersService {
     return response;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOneBy(id: string) {
+    const response = this.userRepository.findOneBy({ id });
+    return response;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: string, updateUserDto: UpdateUserDto) {
+    return this.userRepository.save({
+      id: id,
+      updateUserDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    this.userRepository
+      .createQueryBuilder()
+      .delete()
+      .from(User)
+      .where('id = :id', { id: id })
+      .execute();
   }
 }
