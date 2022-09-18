@@ -9,7 +9,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 @Entity({
-  name: 'users',
+  name: 'user',
 })
 export class User {
   @PrimaryColumn()
