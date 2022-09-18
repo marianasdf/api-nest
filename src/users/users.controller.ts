@@ -6,18 +6,29 @@ import {
   Patch,
   Param,
   Delete,
+  HttpStatus,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Body() createUserDto: CreateUserDto, @Res() response: Response) {
+    const result = this.usersService.create(createUserDto);
+    if (result) {
+      return response.status(HttpStatus.CREATED).json({
+        msg: 'User Created',
+      });
+    }
+    return response.status(HttpStatus.BAD_REQUEST).json({
+      msg: 'Error Creating User',
+    });
   }
 
   @Get()
@@ -31,8 +42,20 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Res() response: Response,
+  ) {
+    const result = this.usersService.update(id, updateUserDto);
+    if (result) {
+      return response.status(HttpStatus.CREATED).json({
+        msg: 'User Updated',
+      });
+    }
+    return response.status(HttpStatus.BAD_REQUEST).json({
+      msg: 'Error Updating User',
+    });
   }
 
   @Delete(':id')
